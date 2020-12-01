@@ -10,7 +10,7 @@ import { TableListItem } from './data.d';
 import { queryRule, updateRule, addRule, removeRule } from './service';
 
 /**
- * 添加节点
+ * Add node
  * @param fields
  */
 const handleAdd = async (fields: TableListItem) => {
@@ -28,7 +28,7 @@ const handleAdd = async (fields: TableListItem) => {
 };
 
 /**
- * 更新节点
+ * Update node
  * @param fields
  */
 const handleUpdate = async (fields: FormValueType) => {
@@ -51,7 +51,7 @@ const handleUpdate = async (fields: FormValueType) => {
 };
 
 /**
- *  删除节点
+ *  Delete node
  * @param selectedRows
  */
 const handleRemove = async (selectedRows: TableListItem[]) => {
@@ -80,14 +80,14 @@ const TableList: React.FC<{}> = () => {
   const [selectedRowsState, setSelectedRows] = useState<TableListItem[]>([]);
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: '规则名称',
+      title: 'Rule name',
       dataIndex: 'name',
-      tip: '规则名称是唯一的 key',
+      tip: 'The rule name is the unique key',
       formItemProps: {
         rules: [
           {
             required: true,
-            message: '规则名称为必填项',
+            message: 'Rule name is required',
           },
         ],
       },
@@ -96,30 +96,30 @@ const TableList: React.FC<{}> = () => {
       },
     },
     {
-      title: '描述',
+      title: 'description',
       dataIndex: 'desc',
       valueType: 'textarea',
     },
     {
-      title: '服务调用次数',
+      title: 'Number of service calls',
       dataIndex: 'callNo',
       sorter: true,
       hideInForm: true,
       renderText: (val: string) => `${val} 万`,
     },
     {
-      title: '状态',
+      title: 'status',
       dataIndex: 'status',
       hideInForm: true,
       valueEnum: {
-        0: { text: '关闭', status: 'Default' },
-        1: { text: '运行中', status: 'Processing' },
-        2: { text: '已上线', status: 'Success' },
-        3: { text: '异常', status: 'Error' },
+        0: { text: 'Default', status: 'Default' },
+        1: { text: 'Processing', status: 'Processing' },
+        2: { text: 'Success', status: 'Success' },
+        3: { text: 'Error', status: 'Error' },
       },
     },
     {
-      title: '上次调度时间',
+      title: 'Last scheduled time',
       dataIndex: 'updatedAt',
       sorter: true,
       valueType: 'dateTime',
@@ -130,13 +130,13 @@ const TableList: React.FC<{}> = () => {
           return false;
         }
         if (`${status}` === '3') {
-          return <Input {...rest} placeholder="请输入异常原因！" />;
+          return <Input {...rest} placeholder="Please enter the reason for the exception!" />;
         }
         return defaultRender(item);
       },
     },
     {
-      title: '操作',
+      title: 'operating',
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => (
@@ -147,10 +147,10 @@ const TableList: React.FC<{}> = () => {
               setStepFormValues(record);
             }}
           >
-            配置
+            Configuration
           </a>
           <Divider type="vertical" />
-          <a href="">订阅警报</a>
+          <a href="">Subscribe to alerts</a>
         </>
       ),
     },
@@ -159,7 +159,7 @@ const TableList: React.FC<{}> = () => {
   return (
     <PageContainer>
       <ProTable<TableListItem>
-        headerTitle="查询表格"
+        headerTitle="Enquiry form"
         actionRef={actionRef}
         rowKey="key"
         search={{
@@ -167,7 +167,7 @@ const TableList: React.FC<{}> = () => {
         }}
         toolBarRender={() => [
           <Button key="1" type="primary" onClick={() => handleModalVisible(true)}>
-            <PlusOutlined /> 新建
+            <PlusOutlined /> New
           </Button>,
         ]}
         request={(params, sorter, filter) => queryRule({ ...params, sorter, filter })}
@@ -180,9 +180,9 @@ const TableList: React.FC<{}> = () => {
         <FooterToolbar
           extra={
             <div>
-              已选择 <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
+              chosen <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
               <span>
-                服务调用次数总计 {selectedRowsState.reduce((pre, item) => pre + item.callNo, 0)} 万
+              Total number of service calls {selectedRowsState.reduce((pre, item) => pre + item.callNo, 0)} 万
               </span>
             </div>
           }
@@ -194,9 +194,9 @@ const TableList: React.FC<{}> = () => {
               actionRef.current?.reloadAndRest?.();
             }}
           >
-            批量删除
+            batch deletion
           </Button>
-          <Button type="primary">批量审批</Button>
+          <Button type="primary">Batch approval</Button>
         </FooterToolbar>
       )}
       <CreateForm onCancel={() => handleModalVisible(false)} modalVisible={createModalVisible}>

@@ -9,7 +9,7 @@ import { queryCurrent } from './services/user';
 import defaultSettings from '../config/defaultSettings';
 
 /**
- * 获取用户信息比较慢的时候会展示一个 loading
+ * When obtaining user information is slow, one will be displayed loading
  */
 export const initialStateConfig = {
   loading: <PageLoading />,
@@ -88,7 +88,7 @@ const codeMessage = {
 };
 
 /**
- * 异常处理程序
+ * Exception handler
  */
 const errorHandler = (error: ResponseError) => {
   const { response } = error;
@@ -97,15 +97,15 @@ const errorHandler = (error: ResponseError) => {
     const { status, url } = response;
 
     notification.error({
-      message: `请求错误 ${status}: ${url}`,
+      message: `Request error ${status}: ${url}`,
       description: errorText,
     });
   }
 
   if (!response) {
     notification.error({
-      description: '您的网络发生异常，无法连接服务器',
-      message: '网络异常',
+      description: 'Your network is abnormal and cannot connect to the server',
+      message: 'network anomaly',
     });
   }
   throw error;
